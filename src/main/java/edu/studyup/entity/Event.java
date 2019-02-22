@@ -47,6 +47,7 @@ public class Event {
 
 	// comment
 	public Date getDate() {
+
 		if(date == null) {
 			return null;
 		} else {
@@ -60,6 +61,7 @@ public class Event {
 		} else {
 			this.date = new Date(date.getTime());
 		}
+
 	}
 
 	public int getEventID() {

@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
@@ -75,7 +76,8 @@ class EventServiceImplTest {
 			eventServiceImpl.updateEventName(eventID, "Renamed Event 3");
 		  });
 	}
-	
+  
+	//Checks for Name Length <= 20
 	@Test
 	void testUpdateEventNameLength_badCase() throws StudyUpException {
 		int eventID = 1; 
@@ -85,8 +87,8 @@ class EventServiceImplTest {
 			eventServiceImpl.updateEventName(eventID, eventName);
 		});
 	}
-	
-	//Good Test
+
+	//Good Testers, tests upcoming event
 	@Test
 	void testGetActiveEvents_GoodCase(){ 
 		Event event = new Event();
@@ -111,7 +113,7 @@ class EventServiceImplTest {
 		DataStorage.eventData.put(event.getEventID(), event);
 		assertFalse(eventServiceImpl.getActiveEvents().contains(DataStorage.eventData.get(2)));
 	}
-	
+
 	//Good Case
 	@Test
 	void testAddStudentToEvent_GoodCase() throws StudyUpException { 
@@ -125,7 +127,7 @@ class EventServiceImplTest {
 		//List<Student> listOfStudents = DataStorage.eventData.get(eventID).getStudents();
 		assertTrue(eventServiceImpl.addStudentToEvent(student, eventID).getStudents().contains(student));
 	}
-	
+
 	//Good Case to test Null StudentsList
 	@Test
 	void testAddStudentToEvent_GoodCase_StudentsNull() throws StudyUpException { 
@@ -140,14 +142,14 @@ class EventServiceImplTest {
 		DataStorage.eventData.put(eventID, event);
 		assertTrue(eventServiceImpl.addStudentToEvent(student, eventID).getStudents().contains(student));
 	}
-	
+
 	//Bad Case: The Event does not exist
 	@Test
 	void testAddStudentToEvent_BadCase_EventNull() { 
 		//Event event = new Event();
 		//event.setEventID(2);
 		//DataStorage.eventData.put(event.getEventID(), null);
-	
+
 		Student student = new Student();
 		student.setFirstName("Jane");
 		student.setLastName("Doe");
@@ -168,7 +170,7 @@ class EventServiceImplTest {
 		eventServiceImpl.addStudentToEvent(student1, eventID);
 		assertFalse(eventServiceImpl.addStudentToEvent(student2, eventID).getStudents().contains(student2));
 	}
-	
+
 	//Bad Case: Cannot add the same student to same Event
 	@Test
 	void testAddStudentToEvent_BadCase_SameStudent() throws StudyUpException { 
@@ -183,6 +185,7 @@ class EventServiceImplTest {
 
 	}
 	
+
 	//Bad Case: Event ID does not exist
 	@Test
 	void testAddStudentToEvent_BadCase_WrongEventID() {
@@ -195,13 +198,13 @@ class EventServiceImplTest {
 			eventServiceImpl.addStudentToEvent(student, 2);
 		  });
 	}
-	
+
 	@Test 
 	void testDeleteEvent_GoodCase () {
 		eventServiceImpl.deleteEvent(1);
 		assertTrue(DataStorage.eventData.isEmpty());
 	}
-	
+
 	@Test
 	void testGetPastEvents_GoodCase() {
 		Event event = new Event();
@@ -215,3 +218,4 @@ class EventServiceImplTest {
 		assertTrue(eventServiceImpl.getPastEvents().contains(DataStorage.eventData.get(2)));
 	}
 }
+

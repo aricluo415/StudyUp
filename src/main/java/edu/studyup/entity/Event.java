@@ -45,6 +45,7 @@ public class Event {
 		this.students = students;
 	}
 
+	// comment
 	public Date getDate() {
 		if(date == null) {
 			return null;
